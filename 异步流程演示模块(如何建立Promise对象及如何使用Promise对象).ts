@@ -19,7 +19,7 @@
  * - 学习 async/await 的错误处理机制
  * - 学习异步函数返回 Promise 后的链式调用方式
  */
-
+// 建立Promise对象，通常包裹在函数内,便于传递条件参数
 function getPromise(condition: boolean) {
     const promise = new Promise<string | number | boolean>((resolve, reject) => {
         if (condition == true) {
@@ -32,7 +32,7 @@ function getPromise(condition: boolean) {
 
 }
 
-
+// ES6语法，用异步函数使用Promise对象
 async function usePromise(parameter: boolean): Promise<any> {
     try {
         const result: any = await getPromise(parameter)
@@ -46,5 +46,9 @@ async function usePromise(parameter: boolean): Promise<any> {
     }
     return parameter
 }
+// ES6语法，用异步函数使用Promise对象
 let result: Promise<any> = usePromise(true)
+
+
+// 传统的链式调用Promise对象获得结果
 result.then((result) => { console.log(`使用Promise传统链式调用,拿到Promise的结果：${result}`); return result }).catch((error) => { console.log(`报错信息：${error}`); return error }).finally(() => { console.log("Promise传统链式调用的finally中回调函数结果：程序结束"); return undefined })
