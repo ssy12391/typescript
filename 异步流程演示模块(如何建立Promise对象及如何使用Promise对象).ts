@@ -49,6 +49,8 @@ async function usePromise(parameter: boolean): Promise<any> {
 // ES6语法，用异步函数使用Promise对象
 let result: Promise<any> = usePromise(true)
 
+console.log(`\nusePromise的返回值：\n${result}\n***********${'分割线'}*********************`)
 
 // 传统的链式调用Promise对象获得结果
 result.then((result) => { console.log(`使用Promise传统链式调用,拿到Promise的结果：${result}`); return result }).catch((error) => { console.log(`报错信息：${error}`); return error }).finally(() => { console.log("Promise传统链式调用的finally中回调函数结果：程序结束"); return undefined })
+
