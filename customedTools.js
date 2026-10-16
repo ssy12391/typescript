@@ -64,7 +64,6 @@ export class ManipulateDOMs {
 
 
 const tasks = new ManipulateDOMs(`review`);
-
 const fathernodes = tasks.getElementsByTagName("div")
 const fatherNode = fathernodes[0]
 const childnode = tasks.createElement("div")
@@ -73,6 +72,5 @@ const elementsArray = tasks.addChildNodeToFatherNode(childnode, fatherNode)
 console.log(elementsArray)
 tasks.setAttributeWithValue(childnode, "id", "div-child")
 tasks.setAttributeWithValue(childnode, "class", "divisions")
-tasks.inserttTextIntoElements(childnode, "子区域的div")
-
+tasks.insertTextIntoElements(childnode, "子区域的div")
 tasks.insertTextIntoElements(fatherNode, "<h1>大标题</h1>")
