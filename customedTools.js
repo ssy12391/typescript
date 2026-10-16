@@ -1,21 +1,51 @@
-// 自定义工具箱
-/**
- * 操作dom元素的类,建立实例化对象后,可以用实例方法操作dom元素
- */
 export class ManipulateDOMs {
+    /**
+     * 类属性，待更新
+     * @type {any}
+     */
     classAttribute = undefined
+    /**
+     * 类属性，待更新
+     * @type {any}
+     */
     classProperty = undefined
+    /**
+     * 实例属性，由构造函数赋值
+     * @type {any}
+     */
     attribute = undefined
+    /**
+     * 实例方法，由构造函数赋值
+     * @type {Function}
+     */
     method = undefined
+    /**
+     * 构造函数，建立实例属性
+     * @param {any} parameters 实例属性的值，类的实例化对象需要传入
+     */
     constructor(parameters) {
         this.attribute = parameters
+        /**
+         * 实例对象的方法，返回传入的参数
+         * @param {any} parameters 方法的参数
+         * @returns {any} 返回传入的参数
+         */
         this.method = function 实例对象的方法(parameters) {
             console.log(`返回结果：${parameters}`)
             return parameters
         }
     }
+    /**
+     * 通过 id 获取页面元素
+     * @param {string} id 元素的 id 属性值
+     * @returns {HTMLElement | null | undefined} 找到返回元素，找不到返回 null，异常时返回 undefined
+     */
     getElementById = (id) => {
         try {
+            /**
+             * 匹配到的 DOM 元素，可能为 null
+             * @type {HTMLElement | null}
+             */
             let element = document.getElementById(id);
             return element
         } catch (error) {
@@ -23,54 +53,89 @@ export class ManipulateDOMs {
             return undefined
         }
     }
+    /**
+     * 通过 class 属性获取元素集合
+     * @param {string} className 元素的 class 属性值
+     * @returns {HTMLCollectionOf<Element>} 匹配 className 的元素集合
+     */
     getElementsByClass = function 通过class属性获取元素(className) {
+        /**
+         * 匹配 className 的元素集合
+         * @type {HTMLCollectionOf<Element>}
+         */
         const elements = document.getElementsByClassName(className)
         return elements
     }
-
+    /**
+     * 通过标签名获取元素集合
+     * @param {string} tagName 符合 HTML5 语法的标签名
+     * @returns {HTMLCollectionOf<HTMLElement>} 匹配标签名的元素集合
+     */
     getElementsByTagName = function 根据元素名称获取元素(tagName) {
-   
+        /**
+         * 匹配标签名的元素集合
+         * @type {HTMLCollectionOf<HTMLElement>}
+         */
         const elements = document.getElementsByTagName(tagName)
         return elements
     }
+    /**
+     * 创建指定标签名的元素
+     * @param {string} tagName 符合 HTML5 语法的标签名
+     * @returns {HTMLElement} 创建的元素
+     */
     createElement = function 建立元素(tagName) {
+        /**
+         * 新创建的 DOM 元素
+         * @type {HTMLElement}
+         */
         const element = document.createElement(tagName)
         return element
     }
-
+    /**
+     * 把子节点添加到父节点
+     * @param {HTMLElement} childNode 子元素
+     * @param {HTMLElement} fatherNode 父元素
+     * @returns {Array<HTMLElement>} 包含父元素和子元素的数组
+     */
     addChildNodeToFatherNode = function 把dom子节点添加到dom父节点(childNode, fatherNode) {
         fatherNode.appendChild(childNode)
+        /**
+         * 包含父元素和子元素的数组
+         * @type {Array<HTMLElement>}
+         */
         const nodesArray = [childNode, fatherNode]
         return nodesArray
     }
-
+    /**
+     * 设置 DOM 元素的属性及属性值
+     * @param {HTMLElement} element 目标 DOM 元素
+     * @param {string} attributeName 符合 HTML5 语法的属性名
+     * @param {any} attributeValue 属性值
+     * @returns {HTMLElement} 设置好属性的元素
+     */
     setAttributeWithValue = function 建立dom元素的属性并赋值(element, attributeName, attributeValue) {
         element.setAttribute(attributeName, attributeValue)
         return element
     }
-
+    /**
+     * 把文本插入到元素内
+     * @param {HTMLElement} element 目标 DOM 元素
+     * @param {string} text 要插入的文本
+     * @returns {HTMLElement} 设置好文本的元素
+     */
     insertTextIntoElements = function 把字符串文本插入到元素内(element, text) {
         element.innerText = text
         return element
-
     }
-
-    inertHTMLCodeIntoNode = (element, html5Code) => {
+    /**
+     * 把 HTML 代码插入到元素内
+     * @param {HTMLElement} element 目标 DOM 元素
+     * @param {string} html5Code 符合 HTML5 语法的 HTML 语句
+     * @returns {HTMLElement} 设置好 HTML 的元素
+     */
+   insertHTMLCodeIntoNode = (element, html5Code) => {
         element.innerHTML = html5Code
         return element
     }
 }
-/**测试样例 */
-
-
-const tasks = new ManipulateDOMs(`review`);
-const fathernodes = tasks.getElementsByTagName("div")
-const fatherNode = fathernodes[0]
-const childnode = tasks.createElement("div")
-
-const elementsArray = tasks.addChildNodeToFatherNode(childnode, fatherNode)
-console.log(elementsArray)
-tasks.setAttributeWithValue(childnode, "id", "div-child")
-tasks.setAttributeWithValue(childnode, "class", "divisions")
-tasks.insertTextIntoElements(childnode, "子区域的div")
-tasks.insertTextIntoElements(fatherNode, "<h1>大标题</h1>")
