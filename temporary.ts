@@ -12,12 +12,16 @@ class MyTools {
         this.property = argument
         this.method0 = (parameter: any, argument: any) => { console.log(`${parameter}、${argument}`); return [parameters, argument] }
     }
-    method1() {console.log(`实例方法1`);return undefined }
-    method2() {console.log(`实例方法2`);return undefined }
+    method1() { console.log(`实例方法1`); return undefined }
+    method2() { console.log(`实例方法2`); return undefined }
+    method3 = function 函数(parameter: any) {
+    console.log(`${parameter}`); return parameter
+}
 }
 
- const myobject = new MyTools(1,2);
+const myobject = new MyTools(1, 2);
 
-myobject.method0(1,2)
+myobject.method0(1, 2)
+myobject.method3(12)
 
 export default MyTools
