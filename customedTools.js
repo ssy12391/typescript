@@ -134,8 +134,98 @@ export class ManipulateDOMs {
      * @param {string} html5Code 符合 HTML5 语法的 HTML 语句
      * @returns {HTMLElement} 设置好 HTML 的元素
      */
-   insertHTMLCodeIntoNode = (element, html5Code) => {
+    insertHTMLCodeIntoNode = (element, html5Code) => {
         element.innerHTML = html5Code
         return element
     }
 }
+
+export class MainpulatePromise {
+    /**
+     * 类属性，待更新
+     * @type {any}
+     */
+    classProperty = undefined
+    /**
+     * 类属性，待更新
+     * @type {any}
+     */
+    classAttribute = undefined
+    /**
+     * 实例属性，由构造函数赋值
+     * @type {any}
+     */
+    attribute = undefined
+    /**
+     * 实例属性，由构造函数赋值
+     * @type {any}
+     */
+    property = undefined
+    /**
+     * 实例方法，由构造函数赋值
+     * @type {Function}
+     */
+    method = undefined
+    /**
+     * 构造函数，建立实例属性
+     * @param {any} parameter 实例属性 attribute 的值
+     * @param {any} argument 实例属性 property 的值
+     */
+    constructor(parameter, argument) {
+        this.attribute = parameter
+        this.property = argument
+        /**
+         * 实例方法，打印并返回传入的两个参数组成的数组
+         * @returns {Array<any>} 包含 parameter 和 argument 的数组
+         */
+        this.method = () => { console.log(`${[parameter, argument]}`); return [parameter, argument] }
+    }
+    /**
+     * 生成自定义开启时机和传递数据的 Promise 对象
+     * @param {boolean} condition 触发条件，为 true 时调用 resolve，否则调用 reject
+     * @param {any} valueWhenTrue 条件为真时传递给 resolve 的值
+     * @param {any} valueWhenFalse 条件为假时传递给 reject 的值
+     * @returns {Promise<any>} 自定义开启时机和传递数据的 Promise 对象
+     */
+    generatePromise(condition, valueWhenTrue, valueWhenFalse) {
+        /**
+         * 由条件控制开启时机的 Promise 对象
+         * @type {Promise<any>}
+         */
+        const promise = new Promise((resolve, reject) => {
+            if (condition == true) {
+                resolve(valueWhenTrue)
+            } else {
+                reject(valueWhenFalse)
+            }
+        })
+            ; return promise
+    }
+    /**
+     * 以 async/await 异步函数的方式调用 Promise 对象
+     * @param {Promise<any>} promise 自定义开启时机和传递数据的 Promise 对象
+     * @returns {Promise<any>} Promise 对象触发后返回的数据（async 函数始终返回 Promise）
+     */
+    async usePromise(promise) {
+        try {
+            /**
+             * Promise 对象符合条件时，触发后返回的数据
+             * @type {any}
+             */
+            const result = await promise
+            return result
+
+        }
+        catch (error) {
+            console.log(`报错内容：${error}`)
+            throw error
+        }
+    }
+
+}
+
+// 测试样例
+const tasks = new MainpulatePromise("对象", "实例化");
+const promise = tasks.generatePromise(1+1==2,"yes","no!")
+let result=tasks.usePromise(promise)
+console.log(result)
