@@ -1,27 +1,28 @@
 // 复习ts
+
 /**
  * 自定义工具类
  */
-class MyTools {
-
+export class ManipulateDOMs {
     attribute: any
-    property: any
-    method0: Function
-    constructor(parameters: any, argument: any) {
+    method: Function
+    constructor(parameters: any) {
         this.attribute = parameters
-        this.property = argument
-        this.method0 = (parameter: any, argument: any) => { console.log(`${parameter}、${argument}`); return [parameters, argument] }
+        this.method = function name(parameters: any) {
+
+            console.log(`返回结果：${parameters}`)
+            return parameters
+        }
     }
-    method1() { console.log(`实例方法1`); return undefined }
-    method2() { console.log(`实例方法2`); return undefined }
-    method3 = function 函数(parameter: any) {
-    console.log(`${parameter}`); return parameter
+    getElementById(id: string): HTMLElement | null {
+        let element: HTMLElement | null = document.getElementById(id);
+        return element
+    }
 }
-}
 
-const myobject = new MyTools(1, 2);
 
-myobject.method0(1, 2)
-myobject.method3(12)
+const mytask = new ManipulateDOMs(1);
+const div:HTMLElement|null = mytask.getElementById(`div`)
+console.log(div)
 
-export default MyTools
+
