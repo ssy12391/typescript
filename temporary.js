@@ -94,5 +94,5 @@ const elementsArray = tasks.addChildNodeToFatherNode(childnode, fatherNode)
 console.log(elementsArray)
 tasks.setAttributeWithValue(childnode, "id", "div-child")
 tasks.setAttributeWithValue(childnode, "class", "divisions")
-
+tasks.inserTextIntoElements(childnode,"子区域的div")
 
