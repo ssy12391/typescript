@@ -163,7 +163,7 @@ export class MainpulatePromise {
     property = undefined
     /**
      * 实例方法，由构造函数赋值
-     * @type {Function}
+     * @type {((...args: any[]) => any) | undefined}
      */
     method = undefined
     /**
@@ -175,7 +175,7 @@ export class MainpulatePromise {
         this.attribute = parameter
         this.property = argument
         /**
-         * 实例方法，打印并返回传入的两个参数组成的数组
+         * 实例方法：打印并返回传入的两个参数组成的数组
          * @returns {Array<any>} 包含 parameter 和 argument 的数组
          */
         this.method = () => { console.log(`${[parameter, argument]}`); return [parameter, argument] }
@@ -227,8 +227,12 @@ export class MainpulatePromise {
 
 // 测试样例
 const tasks = new MainpulatePromise("对象", "实例化");
-const promise = tasks.generatePromise(1+1==2,"yes","no!")
+const promise = tasks.generatePromise(1+1==3,"yes","no!")
+/**
+ * 内部 await 拆的是"传进来的那个 promise"。  
+ * 外部 await 拆的是"async 函数返回的那个 promise"。
+ * @type {Promise<any>}
+ */
 let result=tasks.usePromise(promise)
 console.log(`当前结果：${result}`)
-
 console.log(`当前结果：${await result}`)
