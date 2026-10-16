@@ -1,2 +1,191 @@
-// 复习ts
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>尊界V800刹车事件复盘</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", sans-serif;
+    background: #f5f6f8; color: #1f2329; line-height: 1.75;
+    padding: 0 0 48px;
+  }
+  header {
+    background: linear-gradient(135deg, #2b2f36 0%, #4a5058 100%);
+    color: #fff; padding: 36px 20px 30px; text-align: center;
+  }
+  header h1 { font-size: 22px; font-weight: 700; letter-spacing: .5px; }
+  header p { font-size: 13px; color: #c9cdd4; margin-top: 8px; }
+  .wrap { max-width: 860px; margin: 0 auto; padding: 0 16px; }
+  section { margin-top: 32px; }
+  .sec-title {
+    font-size: 18px; font-weight: 700; color: #2b2f36;
+    padding-left: 12px; border-left: 4px solid #d93025; margin-bottom: 16px;
+  }
+  /* 时间轴 */
+  .timeline { position: relative; padding-left: 24px; }
+  .timeline::before {
+    content: ""; position: absolute; left: 6px; top: 6px; bottom: 6px;
+    width: 2px; background: #d9dde3;
+  }
+  .tl-item { position: relative; margin-bottom: 20px; }
+  .tl-item::before {
+    content: ""; position: absolute; left: -22px; top: 7px;
+    width: 10px; height: 10px; border-radius: 50%;
+    background: #d93025; border: 2px solid #fff; box-shadow: 0 0 0 2px #f0c2bf;
+  }
+  .tl-date { font-size: 13px; font-weight: 700; color: #d93025; }
+  .tl-text { font-size: 15px; color: #3a3f45; margin-top: 2px; }
+  /* 观点卡 */
+  .card {
+    background: #fff; border-radius: 12px; padding: 18px 20px;
+    margin-bottom: 14px; box-shadow: 0 2px 10px rgba(0,0,0,.04);
+  }
+  .card h3 { font-size: 15px; font-weight: 700; margin-bottom: 8px; color: #2b2f36; }
+  .card p, .card li { font-size: 14px; color: #4a5058; }
+  .card ul { padding-left: 18px; }
+  .card li { margin-bottom: 4px; }
+  .tag {
+    display: inline-block; font-size: 12px; padding: 2px 10px; border-radius: 20px;
+    margin-bottom: 10px; font-weight: 600;
+  }
+  .tag-test { background: #fdecea; color: #d93025; }
+  .tag-brand { background: #e8f0fe; color: #2b5fd9; }
+  .tag-media { background: #fef6ec; color: #b26a00; }
+  .tag-tech { background: #eafaf1; color: #1a7f4b; }
+  /* 得失 */
+  .gain h3 { color: #1a7f4b; }
+  .loss h3 { color: #d93025; }
+  .loss-list li { margin-bottom: 10px; }
+  .footer {
+    max-width: 860px; margin: 36px auto 0; padding: 20px 16px;
+    font-size: 13px; color: #8a9099; border-top: 1px solid #e5e7eb;
+  }
+</style>
+</head>
+<body>
+<header>
+  <h1>尊界V800刹车测试风波 · 时间轴与公关复盘</h1>
+  <p>2026年10月 · 事件梳理与观点汇总</p>
+</header>
 
+<div class="wrap">
+
+  <section>
+    <div class="sec-title">事件时间轴</div>
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-date">10/1–10/4</div>
+        <div class="tl-text">懂车帝在封闭场地对3台全新尊界V800做100km/h–0连续全力制动，分别在第2–4次制动时刹车踏板支架断裂，峰值踏板力约1612N。</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">10/8</div>
+        <div class="tl-text">测试视频发布，话题冲上热搜；江淮汽车当日跌停（24.72元），单日市值蒸发约62亿。</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">10/8 晚</div>
+        <div class="tl-text">尊界发《情况说明》：系统按高于国标/行标开发，用户场景未发生断裂，但承诺优化设计并对已交付车辆提供免费升级。</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">10/9</div>
+        <div class="tl-text">江淮再度跌停（22.25元），两日市值蒸发约118亿；伯特利董事长称"属滥用工况"。</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">10/10</div>
+        <div class="tl-text">四部门发汽车研发测试验证管理征求意见稿，被解读为"速成车/验证缩水"监管信号。</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">10/11</div>
+        <div class="tl-text">中国汽研第三方检测概要流出：1500N纵向力位移2.61mm符合行标，加严至3000N的14个样品无裂纹（机构口径"仅对送检样品负责"）。</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">10/13</div>
+        <div class="tl-text">尊界发《制动踏板检测情况说明》；懂车帝负责人质疑"静态台架≠实车连续动态急刹"。</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">10/14–10/15</div>
+        <div class="tl-text">多方继续追问静压与实车急刹差异；网传"懂车帝花钱找博主补刀"被辟谣，懂车帝称将取证起诉。</div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-title">有影响力媒体与角色观点</div>
+
+    <div class="card">
+      <span class="tag tag-test">测试方 · 懂车帝</span>
+      <ul>
+        <li>100km/h刹停是汽车实测基本科目，非极端炫技。</li>
+        <li>3台不同批次同位置断裂＝结构余量/动态冲击设计问题，非个例。</li>
+        <li>真实峰值1612N未超行业常引的2000N冗余参考值，刹车踏板"不该断"。</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <span class="tag tag-brand">厂商与产业链 · 尊界/江淮/伯特利</span>
+      <ul>
+        <li>尊界：国标行标都过、实车用户没断，但主动免费升级，姿态上"用户安全优先"。</li>
+        <li>伯特利：可能是侧向发力"别断"，正向人力踩不断，媒体拿国产高端车赚流量。</li>
+        <li>核心策略：不承认日常场景有缺陷，把懂车帝工况定义为"非标准/滥用"，同时用升级消弭不安。</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <span class="tag tag-media">中央 / 财经媒体</span>
+      <ul>
+        <li>人民日报客户端定调："刹车踏板绝不该在驾驶中断裂，安全是不可逾越的红线。"</li>
+        <li>财经媒体聚焦市值蒸发、鸿蒙智行高端化受挫、江淮制造端背锅。</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <span class="tag tag-tech">中立技术派</span>
+      <ul>
+        <li>油门可断、刹车不能断；争议不在"要不要踩死"，而在静态台架与动态连续急刹是否等价。</li>
+        <li>关键缺口：样品来源、原始曲线、摄像与传感器同步、同供应商其他车型对比、批量一致性均未完全公开。</li>
+        <li>结论倾向：厂家自检报告能证明"台架合格"，但证明不了"实车极限工况无隐患"。</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-title">江淮 / 尊界公关动作复盘</div>
+
+    <div class="card gain">
+      <h3>✅ 得</h3>
+      <ul class="loss-list">
+        <li><b>响应速度快：</b>当天晚间出声明，未沉默回避，避免"沉默＝默认"。</li>
+        <li><b>不硬拗对错：</b>承认非标准工况也要加冗余底线。</li>
+        <li><b>用第三方检测接住舆论：</b>中国汽研/行标数据让"完全不合格"叙事站不住。</li>
+        <li><b>议题转向：</b>把焦点从"百万豪车断踏板"扭到"极端工况冗余升级"，给出免费升级，保住"不甩锅给用户"的底线，争取了缓冲期。</li>
+      </ul>
+    </div>
+
+    <div class="card loss">
+      <h3>❌ 失</h3>
+      <ul class="loss-list">
+        <li><b>主体模糊：</b>尊界发声明、江淮被跌停、华为不站前台，品牌方与制造方责任边界不清。</li>
+        <li><b>检测报告反击过急：</b>静态报告一出，被反手一句"不是同一场考试"，信任未修复。</li>
+        <li><b>缺公开复测邀约：</b>一直被动出说明，未主动提议统一协议下的公开复测直播，把定义权全交给懂车帝。</li>
+        <li><b>技术话术踩坑：</b>强调"高于国标"反被央媒反呛——国标是及格线，百万级卖的是冗余。</li>
+        <li><b>舆情外溢未防住：</b>从踏板断裂滑到"速成车、华为赋能是否营销、江淮高端制造行不行"，只救零件、没救品牌叙事。</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-title">一句话定调</div>
+    <div class="card">
+      <p>尊界这次公关"<b>止损及格、信任重修不及格</b>"：快速、温和、肯升级，但没敢把最关键的"实车极限工况原始数据 + 独立公开复测"交出去，于是资本市场先罚一遍，安全话语权也被测试方拿走。</p>
+      <p style="margin-top:12px;">下一步最该做的不是再发通报，而是：<b>监管在场 + 样品可追溯 + 懂车帝工况复刻 + 全程录像 + 同生态车型同台对比</b>的一次公开测试。刹车这东西，通报救不了信任，可验证的事实才能。</p>
+    </div>
+  </section>
+
+</div>
+
+<div class="footer">
+  内容基于公开报道与网络信息整理，仅供学习复盘参考，不构成任何投资或专业建议。
+</div>
+</body>
+</html>
