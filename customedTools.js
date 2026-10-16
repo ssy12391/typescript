@@ -213,12 +213,13 @@ export class MainpulatePromise {
              * @type {any}
              */
             const result = await promise
+            console.log(`Promise符合条件的结果：${result}`)
             return result
 
         }
         catch (error) {
             console.log(`报错内容：${error}`)
-            throw error
+            return error
         }
     }
 
@@ -228,4 +229,6 @@ export class MainpulatePromise {
 const tasks = new MainpulatePromise("对象", "实例化");
 const promise = tasks.generatePromise(1+1==2,"yes","no!")
 let result=tasks.usePromise(promise)
-console.log(result)
+console.log(`当前结果：${result}`)
+
+console.log(`当前结果：${await result}`)
