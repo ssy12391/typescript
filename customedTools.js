@@ -139,7 +139,6 @@ export class ManipulateDOMs {
         return element
     }
 }
-
 export class MainpulatePromise {
     /**
      * 类属性，待更新
@@ -225,14 +224,164 @@ export class MainpulatePromise {
 
 }
 
-// 测试样例
-const tasks = new MainpulatePromise("对象", "实例化");
-const promise = tasks.generatePromise(1+1==3,"yes","no!")
 /**
- * 内部 await 拆的是"传进来的那个 promise"。  
- * 外部 await 拆的是"async 函数返回的那个 promise"。
- * @type {Promise<any>}
+ * ## 函数说明
+ * - 手写ajax时需要
+ * - 存储ajax的异步函数onreadystatechange在回调执行后返回的结果
+ * @param {any} results 异步函数onreadystatechange在回调执行后返回的结果
+ * @returns {any} 异步函数onreadystatechange在回调执行后返回的结果
  */
-let result=tasks.usePromise(promise)
-console.log(`当前结果：${result}`)
-console.log(`当前结果：${await result}`)
+function get_results_from_callback_function(results) {
+    return results
+    
+}
+
+
+/**
+ * ### 工具参数说明
+ * - 如果是get请求发起Ajax,需要重新处理get链接，把参数拼接到GET请求的url中
+ * @param {string} url ***尚未拼接查询参数***的原始GET请求url
+ * @param {Record<string,string>} datas ***用于拼接GET请求url的***查询参数
+ * @returns {{"url":string,"parameters":string}} 1. **url**：***已经拼接了查询参数***的GET请求url  
+ * 2. **parameters**:***`object`格式的`datas`对象转化为符合Form表单形式的参数***
+ */
+function combine_GET_Requests_With_Query_Parameters_And_Get_Parameters(url, datas) {
+    let datas_keys = Object.keys(datas)
+    /**
+     * 把对象转化为Form表单形式的参数
+     * @type {string}
+     */
+    let parameters = `?`
+    for (const element of datas_keys) {
+        parameters = parameters + `${element}=${datas[element]}&`
+        // console.log(parameters)
+    }
+    let base_url = `${url}${parameters}`
+    /**
+     * 拼接了查询参数的GET请求url
+     *@type {string} 
+     */
+    let get_url = base_url.slice(0, base_url.length - 1)
+    // console.log(get_url)
+    return { "url": get_url, "parameters": parameters.slice(0,parameters.length-1) }
+}
+/**
+ * #### 函数说明
+ * - 针对json数据类型,发起get请求
+ * @param {string} method 请求方法,默认为`GET`      
+ * @param {{"Content-Type": "application/json","Accept": "application/json"}|Record<string,any>} headers 请求头，json数据类型默认请求头如上
+ * @param {string} url  `GET`请求的url地址，如果有查询参数，需要把查询参数拼接到默认url尾部
+ * @returns {any} 异步函数的回调执行后的返回值不会存储到函数,无法赋值给全局变量,只能在回调函数内部存储和操作网页dom元素
+ */
+function use_Ajax_For_Get_Request_With_Json(method, headers, url) {
+    const xhr = new XMLHttpRequest();
+    const headers_keys = Object.keys(headers)
+    xhr.open(method, url)
+    xhr.setRequestHeader(headers_keys[0], headers["Content-Type"])
+    xhr.setRequestHeader(headers_keys[1], headers["Accept"])
+    xhr.send()
+    xhr.onreadystatechange = () => {
+        if (xhr.readyState === 4) {
+            if (xhr.status === 200) {
+                let result = xhr.responseText
+                console.log(`返回结果：${result}`)
+                return result
+            } else {
+                let code = xhr.status
+                console.log(`响应码：${code}\n响应连接：${xhr.responseURL}`)
+                return code
+            }
+        } else {
+            let code = xhr.readyState
+            console.log(`readyState当前状态码：${code}`)
+            return code
+        }
+    }
+    xhr.onerror = () => {
+        let code = xhr.status
+
+        console.log(`状态码：${code}\n响应连接：${xhr.responseURL}`)
+    }
+    return arguments
+}
+
+
+/**
+ * #### 函数说明
+ * - 针对json数据类型,发起POST请求
+ * @param {string} method 请求方法,默认为`POST`      
+ * @param {{"Content-Type": "application/json","Accept": "application/json"}|Record<string,any>} headers 请求头，json数据类型默认请求头如上
+ * @param {string} url  `POST`请求对应的url地址，需要把在请求过程中发送参数
+ * @param {Record<string,any>} datas `POST`需要发送给服务器的参数
+ * @returns {any} 异步函数的回调执行后的返回值不会存储到函数,无法赋值给全局变量,只能在回调函数内部存储和操作网页dom元素
+ */
+function use_Ajax_For_Post_Request_With_Json(method, headers, url, datas) {
+    const xhr = new XMLHttpRequest();
+    const headers_keys = Object.keys(headers)
+    xhr.open(method, url)
+    xhr.setRequestHeader(headers_keys[0], headers["Content-Type"])
+    xhr.setRequestHeader(headers_keys[1], headers["Accept"])
+    /**
+     * - `post`请求，send方法传递的参数,必须是字符串形式,需要用`JSON.stringify(object)`转化参数格式
+     * @type {string} 对象转化为字符串后的参数
+     */
+    let datasOfString = JSON.stringify(datas)
+    xhr.send(datasOfString)
+    xhr.onreadystatechange = () => {
+        if (xhr.readyState === 4) {
+            if (xhr.status === 200) {
+                let result = xhr.responseText
+                console.log(`返回结果：${result}`)
+                return result
+            } else {
+                let code = xhr.status
+                console.log(`响应码：${code}\n响应连接：${xhr.responseURL}`)
+                return code
+            }
+        } else {
+            let code = xhr.readyState
+            console.log(`readyState当前状态码：${code}`)
+            return code
+        }
+    }
+    xhr.onerror = () => {
+        let code = xhr.status
+
+        console.log(`状态码：${code}\n响应连接：${xhr.responseURL}`)
+    }
+    return arguments
+}
+
+// ----------------------------------json类型数据发起ajax请求-----------------------------------------
+/**
+ * 基本参数,包含请求方法和请求连接
+ */
+const options = {
+    "url": "http://httpbin.org/get", "method": "GET",
+}
+/**
+ * 请求头headers
+ */
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+}
+/**
+ * 请求参数,自定义,需要发送给服务器的
+ */
+const datas = { "username": "simon", "gender": "male" }
+// ------json类型数据发起get请求---------------------------
+
+
+const all_results = combine_GET_Requests_With_Query_Parameters_And_Get_Parameters(options["url"], datas)
+console.log(`Form表单参数：${all_results["parameters"]}\n拼接查询参数后的get请求url:${all_results["url"]}`)
+
+let results = use_Ajax_For_Post_Request_With_Json(`post`, headers, "http://httpbin.org/post", datas)
+for (const element of results) {
+
+    console.log(`测试返回值：${JSON.stringify(element)},${typeof (element)}`)
+}
+
+
+
+
