@@ -1,6 +1,26 @@
+/**
+ * @file customedTools.js
+ * @module customedTools
+ * @description 
+ * 这是一个综合性的前端工具库，主要包含以下核心模块：
+ * 1. **ManipulateDOMs**：DOM 操作类，封装了获取元素、创建元素、添加子节点、设置属性等常用方法。
+ * 2. **MainpulatePromise**：Promise 工具类，提供自定义触发时机的 Promise 生成，以及 async/await 调用封装。
+ * 3. **ReviewAjax**：原生 Ajax 封装类，使用 XMLHttpRequest 实现 GET/POST 请求。
+ * 4. **combine_query_datas_with_get_url / get_url_with_query_parameter**：GET 请求参数拼接工具函数。
+ * 5. **get_Promise_For_Ajax**：将原生 Ajax 封装为 Promise 对象的工具函数。
+ * 6. **use_Promise_For_Ajax**：使用 async/await 优雅调用 Promise 的包装函数。
+ * 7. **use_Promise_with_fetch**：现代 Fetch API 的封装，支持 GET/POST，替代传统的 Ajax。
+ */
+
+/**
+ * 简单的打印并返回参数的测试函数
+ * @param {any} parameter 任意需要打印并返回的参数
+ * @returns {any} 返回传入的参数本身
+ */
 function print(parameter) {
     console.log(parameter);return parameter
 }
+
 export class ManipulateDOMs {
     /**
      * 类属性，待更新
@@ -142,6 +162,7 @@ export class ManipulateDOMs {
         return element
     }
 }
+
 export class MainpulatePromise {
     /**
      * 类属性，待更新
@@ -233,15 +254,18 @@ export class MainpulatePromise {
 export class ReviewAjax {
     /**
      * 类的实例化属性,构造函数`constructor`中会定义，此处提前声明
+     * @type {any}
      */
     attribute = undefined
     /**
      * 类的实例化属性,构造函数`constructor`中会定义，此处提前声明
+     * @type {any}
      */
     property = undefined
     /**
      * - 类的实例化属性,构造函数`constructor`中会定义，此处提前声明
      * - 后续赋值一个函数作为方法(显示还是`property`)
+     * @type {any}
      */
     methods = undefined
     /**
