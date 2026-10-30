@@ -587,11 +587,11 @@ export async function use_Promise_with_fetch(data, headers, method, url) {
 // console.log(result_get)
 // console.log(result_post)
 
-let result_get = use_Promise_with_fetch({ "username": "simon", "password": "12344" }, { "Accept": "application/json" }, "GET", "http://httpbin.org/get",)
-let result_post = use_Promise_with_fetch({ "username": "simon", "password": "12344" }, { "Content-Type": "application/json", "Accept": "application/json", "Authorization": "Bearer my_api_key", "User-Agent": 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36 Edg/157.0.0.0', }, "POST", "http://httpbin.org/post",)
+// let result_get = use_Promise_with_fetch({ "username": "simon", "password": "12344" }, { "Accept": "application/json" }, "GET", "http://httpbin.org/get",)
+// let result_post = use_Promise_with_fetch({ "username": "simon", "password": "12344" }, { "Content-Type": "application/json", "Accept": "application/json", "Authorization": "Bearer my_api_key", "User-Agent": 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36 Edg/157.0.0.0', }, "POST", "http://httpbin.org/post",)
 
-result_get.then((result) => { console.log(`get请求结果：${JSON.stringify(result)}`); return result }).catch((error) => { console.log(error); return error })
-result_post.then((result) => { console.log(`post请求结果：${JSON.stringify(result)}`); return result }).catch((error) => { console.log(error); return error })
+// result_get.then((result) => { console.log(`get请求结果：${JSON.stringify(result)}`); return result }).catch((error) => { console.log(error); return error })
+// result_post.then((result) => { console.log(`post请求结果：${JSON.stringify(result)}`); return result }).catch((error) => { console.log(error); return error })
 
-export default {  print}
-print("今天任务结束啦")
+// export default {  print}
+// print("今天任务结束啦")
