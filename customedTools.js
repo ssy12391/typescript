@@ -19,6 +19,25 @@ export function print(parameter) {
     console.log(parameter); return parameter
 }
 
+
+/**
+ * ## 类说明
+ * - 这是一个前端 DOM 操作工具类模块。
+ * - 封装了原生的 DOM 操作 API，提供了更便捷的获取元素、创建元素、修改元素内容及属性的方法。
+ * - 包含以下核心功能：
+ * 1. **元素获取**：通过 ID、Class、TagName 获取单个元素或集合。
+ * 2. **DOM 创建与挂载**：创建新节点，并将子节点挂载到指定的父节点。
+ * 3. **属性与内容修改**：设置属性、插入纯文本、插入 HTML 代码。
+ * 4. **包含的核心方法**
+ * - `getElementById(id)`: 通过 id 获取单个页面元素（返回 HTMLElement | null）。
+ * - `getElementsByClass(className)`: 通过 class 属性获取元素集合（返回 HTMLCollection）。
+ * - `getElementsByTagName(tagName)`: 通过标签名获取元素集合（返回 HTMLCollection）。
+ * - `createElement(tagName)`: 创建指定标签名的新元素。
+ * - `addChildNodeToFatherNode(childNode, fatherNode)`: 把子节点添加到父节点。
+ * - `setAttributeWithValue(element, attributeName, attributeValue)`: 为元素设置属性及属性值。
+ * - `insertTextIntoElements(element, text)`: 把纯文本插入到元素内。
+ * - `insertHTMLCodeIntoNode(element, html5Code)`: 把 HTML 代码插入到元素内。
+ */
 export class ManipulateDOMs {
     /**
      * 类属性，待更新
