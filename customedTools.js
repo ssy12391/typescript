@@ -1,5 +1,5 @@
 /**
- * #### 模块说明
+ * ##### 模块说明
  * 这是一个综合性的前端工具库，主要包含以下核心模块：
  * 1. **ManipulateDOMs**：DOM 操作类，封装了获取元素、创建元素、添加子节点、设置属性等常用方法。
  * 2. **MainpulatePromise**：Promise 工具类，提供自定义触发时机的 Promise 生成，以及 async/await 调用封装。
@@ -158,33 +158,7 @@ export class ManipulateDOMs {
     insertHTMLCodeIntoNode = (element, html5Code) => {
         element.innerHTML = html5Code
         return element
-    }
-    /**
-     * @description
-     * ### 方法说明
-     * - 通过dom元素的id获取元素，然后得到元素中的值
-     * > **example**：`FORM`表单元素中，`INPUT`元素输入的值
-     * @param {string} id 元素的id
-     * @returns {string|any} `元素内的值`
-     */
-    getValueFromElementByID(id) {
-        /**
-         * #### 变量说明
-         * @type {HTMLElement} 
-         * 通过元素id获取的dom元素
-         */
-        const element=this.getElementById(id)
-        try {
-            const value=element.value
-                return value
-        } catch (error) {
-            console.log(`报错信息：${error}`)
-            return error
-        }
-
-
-     }
-}
+    } }
 
 export class MainpulatePromise {
     /**
