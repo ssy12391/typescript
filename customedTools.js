@@ -177,7 +177,34 @@ export class ManipulateDOMs {
     insertHTMLCodeIntoNode = (element, html5Code) => {
         element.innerHTML = html5Code
         return element
-    } }
+    } 
+
+/**
+ * ### 方法说明
+ * - 通过id获取dom元素,拿到元素内的值
+ * @param {string} id dom元素的id
+ * @returns {string|number|null|undefined|any} dom元素内的值
+ */
+    getValueFromElement(id){
+        /**
+         * ### 变量说明
+         * - 前端元素输入、包含值的元素
+         * @type {HTMLElement|HTMLInputElement|HTMLTextAreaElement}
+         */
+        const element=this.getElementById(id)
+        
+        /**
+         * #### 变量说明
+         * - dom元素内的值
+         * @type {string|number|null|undefined|any}
+         */
+        let value=element.value
+        return value
+    
+    }
+
+
+}
 
 export class MainpulatePromise {
     /**
@@ -260,9 +287,7 @@ export class MainpulatePromise {
             console.log(`报错内容：${error}`)
             return error
         }
-    }
-
-}
+    }}
 
 /**
  * ### 复习ajax用的工具类
