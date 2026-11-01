@@ -192,7 +192,6 @@ export class ManipulateDOMs {
          * @type {HTMLElement|HTMLInputElement|HTMLTextAreaElement}
          */
         const element=this.getElementById(id)
-        
         /**
          * #### 变量说明
          * - dom元素内的值
@@ -618,6 +617,38 @@ export async function use_Promise_with_fetch(data, headers, method, url) {
 }
 
 
+
+/**
+ * ### 函数说明
+ * - 测试函数
+ * - 监听元素事件并获取结果
+ * @param {HTMLElement|HTMLInputElement|HTMLTextAreaElement} element dom元素
+ * @param {string} the_event 事件名称,如`click`
+ * @returns {Record<string,any>} 监听事件的结果
+ */
+function listenToTheElement(element, the_event) {
+    element.addEventListener(the_event, (event) => {
+        // event.preventDefault()
+        /**
+         * ### 变量说明
+         * - 事件对象
+         * @type {EventTarget|null|HTMLInputElement|HTMLElement|HTMLTextAreaElement}
+         */
+        let event_target=event.target
+        let event_type=event.type
+        let event_target_id=event.target.id
+        let event_target_value=event.target.value
+        console.log(`事件对象:${event_target}`)
+        console.log(`事件类型:${event_type}`)
+        console.log(`事件对象id:${event_target_id}`)
+        console.log(`事件对象的值:${event_target_value}`)
+          let result= { "事件对象":event_target, "事件类型": event_type, "事件对象id": event_target_id, "事件对象的值": event_target_value}
+    return result
+    })
+  return arguments
+}
+
+export default {listenToTheElement}
 
 // let result_get = await use_Promise_with_fetch({ "username": "simon", "password": "12344" }, { "Accept": "application/json", "User-Agent": 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36 Edg/157.0.0.0' }, "GET", "http://httpbin.org/get",)
 // let result_post = await use_Promise_with_fetch({ "username": "simon", "password": "12344" }, {
