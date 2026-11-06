@@ -62,8 +62,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
     button.innerText = "日间模式"
     button.addEventListener(`click`, (event) => {
         body.classList.toggle('dark-mode');
-        if (button.innerText == "日间模式"
-        ) {
+        if (body.classList.contains('dark-mode')) {
             button.innerText = "夜间模式"
         } else {
             button.innerText = "日间模式"
