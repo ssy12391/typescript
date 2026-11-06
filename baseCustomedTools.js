@@ -709,7 +709,7 @@ export async function acquireDOMsDynamicResultsFromPromise(element_target, eleme
  * @param {Promise<any>} promise `async`函数或者手动生成的Promise对象
  * @returns {any} Promise传递来的数据，或者报错信息
  */
-async function usePromise(promise) {
+export async function usePromise(promise) {
     try {
         /**
          * #### 变量说明

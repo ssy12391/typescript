@@ -5,3 +5,20 @@
  * - css用属性值设置
  * - 需要使用事件监听
  */
+import {print,ManipulateDOMs,ManipulatePromise,acquireDOMsDynamicResultsFromPromise,  } from "./baseCustomedTools.js";
+
+
+
+export function buttonDesignedForChangingBackgroundColour(params) {
+
+document.addEventListener("DOMContentLoaded",(event)=>{
+    let button=
+    
+    
+    
+    return event})
+
+
+
+    
+}
