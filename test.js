@@ -1,6 +1,7 @@
 
-import { print, acquireDOMsDynamicResultsFromPromise, ManipulateDOMs, ManipulatePromise, simpleDebounce } from "./baseCustomedTools.js";
-import usePromise from "./baseCustomedTools.js";
+import { print, acquireDOMsDynamicResultsFromPromise, ManipulateDOMs, ManipulatePromise, simpleDebounce,usePromise } from "./baseCustomedTools.js";
+import { buttonDesignedForChangingBackgroundColour } from "./simpleToolsForManipulateCSS.js";
+
 print(`测试`, `异步调用回调函数`)
 export function debounce(event_type, delay_time, element) {
     let timer = null
@@ -52,22 +53,24 @@ let element_target = my_tasks.getElementWithQuerySelector(`body  form#form1>inpu
  */
 let textarea = my_tasks.getElementWithQuerySelector(`body  form#form1>textarea[id="textarea0"]`)
 element_target.classList.add(`submits`, `test_throttle`, `test_deboounce`)
-let bodys = my_tasks.getElementsByTagName("body")
-let body = bodys[0]
-document.addEventListener("DOMContentLoaded", (event) => {
-    let button = my_tasks.createElement("button")
-    my_tasks.setAttributeWithValue(button, "id", "button0")
-    my_tasks.setAttributeWithValue(button, "class", "buttons")
-    my_tasks.addChildNodeToFatherNode(button, body)
-    button.innerText = "日间模式"
-    button.addEventListener(`click`, (event) => {
-        body.classList.toggle('dark-mode');
-        if (body.classList.contains('dark-mode')) {
-            button.innerText = "夜间模式"
-        } else {
-            button.innerText = "日间模式"
-        }
-        ; return event
-    })
-    return undefined
-})
+// let bodys = my_tasks.getElementsByTagName("body")
+// let body = bodys[0]
+// document.addEventListener("DOMContentLoaded", (event) => {
+//     let button = my_tasks.createElement("button")
+//     my_tasks.setAttributeWithValue(button, "id", "button0")
+//     my_tasks.setAttributeWithValue(button, "class", "buttons")
+//     my_tasks.addChildNodeToFatherNode(button, body)
+//     button.innerText = "日间模式"
+//     button.addEventListener(`click`, (event) => {
+//         body.classList.toggle('dark-mode');
+//         if (body.classList.contains('dark-mode')) {
+//             button.innerText = "夜间模式"
+//         } else {
+//             button.innerText = "日间模式"
+//         }
+//         ; return event
+//     })
+//     return undefined
+// })
+
+let button=buttonDesignedForChangingBackgroundColour("dark-mode","日间","夜间",true)
