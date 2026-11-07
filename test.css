@@ -1,1 +1,24 @@
-.dark-mode {color: white;background-color: black;}
+.dark-mode {
+    color: white;
+    background-color: black;
+}
+
+
+body {
+    /* 基础设置 */
+    margin: auto;
+    border: 1pc solid black;
+    padding: 1pc;
+
+    /* 弹性盒子 */
+    display: flex;
+    flex-direction: initial;
+    align-items: center;
+    justify-content: center;
+    flex: content;
+    /* 位置设置 */
+    position: relative;
+    z-index: auto;
+    left: 10pc;
+    top: 10pc;
+}

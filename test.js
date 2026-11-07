@@ -74,3 +74,7 @@ element_target.classList.add(`submits`, `test_throttle`, `test_deboounce`)
 // })
 
 let button=buttonDesignedForChangingBackgroundColour("dark-mode","日间","夜间",true)
+
+const my_object = {attribute:'去问了;看',"sahdj":"啊手机打开了"};
+let {attribute,sahdj}=my_object
+print(attribute,sahdj)
