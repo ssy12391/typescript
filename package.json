@@ -1,0 +1,26 @@
+{
+  "name": "typescriporjavascript",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/ssy12391/typescript#readme",
+  "bugs": {
+    "url": "https://github.com/ssy12391/typescript/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ssy12391/typescript.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "axios.min.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "devDependencies": {
+    "@types/node": "^26.6.6",
+    "ts-node": "^10.9.2",
+    "typescript": "^7.0.2"
+  }
+}
