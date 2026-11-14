@@ -1099,7 +1099,6 @@ export function simple_Form_Post_Request_With_ajax(submit, form, url) {
     });
     return arguments
 }
-export default usePromise
 
 /**
 * ## 函数说明
@@ -1193,3 +1192,76 @@ export async function use_promise_of_axios(promise) {
         return error
     }
 }
+
+
+/**
+* ## 函数说明
+* * 动态封装一个基于 Axios 发送 GET 请求的表单提交函数，利用 Promise 进行异步状态管理。
+* * 执行流程：
+    * 1. 实例化一个 Promise，并在内部监听指定 `submit` 按钮的 `click` 事件。
+    * 1. 在点击事件触发时，阻止表单的默认提交行为（防止页面刷新）。
+    * 1. 通过 `FormData` 和 `Object.fromEntries` 获取表单数据，并使用 `URLSearchParams` 将其序列化为 URL 查询参数字符串。
+    * 1. 将查询参数字符串与基础 `url` 拼接，生成完整的 GET 请求地址。
+    * 1. 使用 Axios 发起 GET 请求，并附加指定的 JSON 请求头。
+    * 1. 请求成功则提取响应数据转为 JSON 字符串并调用 `resolve`；若失败则触发 `reject` 并抛出错误。
+* ### 参数说明
+* @param {HTMLElement} submit - 用于触发提交动作的 DOM 按钮元素。
+* * 该元素需绑定事件监听，通常为 `<input type="submit">`。
+* > **example**
+* >
+* > 调用函数后，参数 `submit` 的值设置为表单内的提交按钮
+* >
+* > ```javascript
+* > const myBtn = document.querySelector("button[type='submit']");
+* > ```
+* >
+* @param {HTMLFormElement} form - 包含用户输入数据的 DOM 表单元素。
+* * 用于构造 `FormData` 对象。
+* @param {string} url - GET 请求的基础 URL 接口地址。
+* * 函数内部会自动拼接 `?` 及 URL 编码后的查询参数。
+* ### 返回值说明
+* @returns {Promise} 返回一个 Promise 对象。
+* * 请求成功时，Promise 处于 fulfilled 状态，值为 JSON 字符串格式的响应数据。
+* * 请求失败时，Promise 处于 rejected 状态，值为包含错误信息的字符串。
+ */
+export function use_axios_for_get_request_with_form(submit, form, url) {
+    const promise = new Promise((resolve, reject) => {
+        submit.addEventListener("click", async (event) => {
+            event.preventDefault();
+            let formData = new FormData(form);
+            let parameter = new URLSearchParams(Object.fromEntries(formData.entries())).toString();
+            let get_url = `${url}?${parameter}`;
+            try {
+                let response = await axios.get(get_url, {
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Accept": "application/json",
+                    }
+                });
+                let result = JSON.stringify(response.data);
+                resolve(result);
+            } catch (error) { reject(`报错信息:\n${error}`); throw new Error(`报错信息:\n${error}`); return error; } return event;
+        });
+    });
+    return promise
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+export default usePromise
