@@ -1177,13 +1177,13 @@ export function user_axios_for_post_request_with_form(submit, form, url, method)
 * > 调用函数后，传入上一步返回的 Promise
 * >
 * > ```javascript
-* > await use_promise_of_axios_for_post(myPromise);
+* > await use_promise_of_axios(myPromise);
 * > ```
 * >
 * ### 返回值说明
 * @returns {Promise} 返回一个异步函数的执行结果，成功时返回 Promise 解析的值，失败时抛出错误。
  */
-export async function use_promise_of_axios_for_post(promise) {
+export async function use_promise_of_axios(promise) {
     try {
         let result = await promise
         print(`${result}`)
