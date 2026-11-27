@@ -1,0 +1,16 @@
+@echo off
+copy "D:\OneDrive\文档\PythonModuleTemplate.py" ".\PythonModuleTemplate.py"
+rename "PythonModuleTemplate.py" "PythonModule.py"
+copy "D:\OneDrive\文档\AI短视频脚本信息.xlsx" ".\AI短视频脚本信息.xlsx"
+copy "D:\OneDrive\文档\temporary.html" ".\temporary.html"
+copy "D:\OneDrive\文档\.env" ".\.env"
+copy "D:\OneDrive\文档\axios.min.js" ".\axios.min.js"
+copy "D:\OneDrive\文档\jquery-4.0.0.min.js" ".\jquery-4.0.0.min.js"
+copy "D:\OneDrive\文档\simpleToolsForManipulateCSS.js" ".\simpleToolsForManipulateCSS.js"
+copy "D:\OneDrive\文档\baseCustomedTools.js" ".\baseCustomedTools.js"
+mkdir ".\PythonModulesPackage"
+copy "D:\OneDrive\文档\PythonModuleTemplate.py" ".\PythonModulesPackage"
+rename ".\PythonModulesPackage\PythonModuleTemplate.py" "__init__.py"
+copy "D:\OneDrive\文档\PythonModuleTemplate.py" ".\PythonModulesPackage"
+rename ".\PythonModulesPackage\PythonModuleTemplate.py" "PythonModule.py"
+

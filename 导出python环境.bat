@@ -1,0 +1,1 @@
+.\venv\scripts\python.exe -m pip freeze > ".\requirements.txt"
